@@ -4,59 +4,76 @@ import json
 
 import pytest
 
-from hw2 import hw2
-
-TEST_VALUES = 'input_path, output_path, expected_path'
+import hw2
 
 TEST_PROCESS_DATA = (
     (
-        'hw2/input/data_hw2.json',
-        'hw2/output/output_data_hw2.json',
-        'hw2/expected/expected_data_hw2.json',
+        'input/data_hw2.json',
+        'output/output_data_hw2.json',
+        'expected/expected_data_hw2.json',
     ),
     (
-        'hw2/input/clients.json',
-        'hw2/output/output_clients.json',
-        'hw2/expected/expected_clients.json',
+        'input/clients.json',
+        'output/output_clients.json',
+        'expected/expected_clients.json',
     ),
     (
-        'hw2/input/clients2.json',
-        'hw2/output/output_clients2.json',
-        'hw2/expected/expected_clients2.json',
+        'input/clients2.json',
+        'output/output_clients2.json',
+        'expected/expected_clients2.json',
     ),
     (
-        'hw2/input/unfinished.json',
-        'hw2/output/output_unfinished.json',
-        'hw2/expected/expected_unfinished.json',
+        'input/unfinished.json',
+        'output/output_unfinished.json',
+        'expected/expected_unfinished.json',
     )
 )
 
 TEST_EXIST_FILE = (
-    'hw2/input/gdz.json',
-    'hw2/output/result.json',
+    (
+        'input/gdz.json',
+        'output/output.json',
+    ),
+    (
+        'input/reshalka.json',
+        'output/output.json',
+    )
 )
 
 TEST_EMPTY_FILE = (
-    'hw2/input/empty.json',
-    'hw2/output/result.json',
+    (
+        'input/empty.json',
+        'output/output.json',
+    ),
+    (
+        'input/nothing.json',
+        'output/output.json',
+    )
 )
 
-TEST_INPUT_EXTENSION = (
-    'hw2/input/input.txt',
-    'hw2/output/output_clients.json',
-)
-
-TEST_OUTPUT_EXTENSION = (
-    'hw2/input/clients.json',
-    'hw2/output/output.txt',
+TEST_EXTENSION = (
+    (
+        'input/input.txt',
+        'output/output.json',
+    ),
+    (
+        'input/clients.json',
+        'output/output.txt',
+    )
 )
 
 TEST_WRONG_JSON = (
-    'hw2/input/wrong.json',
-    'hw2/output/result.json',
+    (
+        'input/wrong.json',
+        'output/output.json',
+    ),
+    (
+        'input/broken.json',
+        'output/output.json',
+    )
 )
 
-@pytest.mark.parametrize(TEST_VALUES, TEST_PROCESS_DATA)
+@pytest.mark.parametrize('input_path, output_path, expected_path', TEST_PROCESS_DATA)
 def test_process_data(input_path: str, output_path: str, expected_path: str) -> None:
     hw2.process_data(input_path, output_path)
 
@@ -69,35 +86,28 @@ def test_process_data(input_path: str, output_path: str, expected_path: str) -> 
     assert output == expected
 
 
-@pytest.mark.parametrize(TEST_VALUES, TEST_EXIST_FILE)
+@pytest.mark.parametrize('input_path, output_path', TEST_EXIST_FILE)
 def test_exist_file(input_path: str, output_path: str) -> None:
     
     with pytest.raises(ValueError):
         hw2.process_data(input_path, output_path)
 
 
-@pytest.mark.parametrize(TEST_VALUES, TEST_EMPTY_FILE)
+@pytest.mark.parametrize('input_path, output_path', TEST_EMPTY_FILE)
 def test_empty_file(input_path: str, output_path: str) -> None:
     
     with pytest.raises(ValueError):
         hw2.process_data(input_path, output_path)
 
 
-@pytest.mark.parametrize(TEST_VALUES, TEST_INPUT_EXTENSION)
-def test_input_extension(input_path: str, output_path: str) -> None:
-
-    with pytest.raises(TypeError):
-        hw2.process_data(input_path, output_path)
-
-
-@pytest.mark.parametrize(TEST_VALUES, TEST_OUTPUT_EXTENSION)
-def test_output_extension(input_path: str, output_path: str) -> None:
+@pytest.mark.parametrize('input_path, output_path', TEST_EXTENSION)
+def test_extension(input_path: str, output_path: str) -> None:
 
     with pytest.raises(TypeError):
         hw2.process_data(input_path, output_path)
     
 
-@pytest.mark.parametrize(TEST_VALUES, TEST_WRONG_JSON)
+@pytest.mark.parametrize('input_path, output_path', TEST_WRONG_JSON)
 def test_wrong_json(input_path: str, output_path: str) -> None:
 
     with pytest.raises(ValueError):

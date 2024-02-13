@@ -1,6 +1,6 @@
 (
-    "Imma (not) serious, it's real a JSON file!":(
-        "about_file": "idk what write here";
+    "Real JSON":(
+        "about_file": "idk";
         "some_data": "is anyone even looking here?";
         "Error": "tests are respected.";
     )
