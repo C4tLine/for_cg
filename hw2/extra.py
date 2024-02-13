@@ -21,25 +21,22 @@ def check_paths(input_path: str, output_path: str) -> None:
         ValueError: If transferred a non-existent file.
         ValueError: If the file contains nothing.
         TypeError: If the input file is in the wrong extension.
-        TypeError: If the output file is in the wrong extension.
     """
     if not os.path.exists(input_path):
         raise ValueError('Input file does not exist.')
     if os.stat(input_path).st_size == 0:
         raise ValueError('Input file is empty.')
-    
+
     _, input_extension = os.path.splitext(input_path)
     _, out_extension = os.path.splitext(output_path)
 
-    if input_extension != '.json':
-        raise TypeError('Input file does not have JSON extension.')
-    if out_extension != '.json':
-        raise TypeError('Output file does not have JSON extension.')
+    if input_extension != '.json' or out_extension != '.json':
+        raise TypeError('Files do not have JSON extension.')
 
 
 def process_last_login(clients: dict[str, dict[str, Any]]) -> dict:
     """
-    Collects clietns statistics by last login as a percentage.
+    Collect clietns statistics by last login as a percentage.
 
     Args:
         clients (dict[str, dict[str, Any]]): Clients data.
@@ -67,7 +64,7 @@ def process_last_login(clients: dict[str, dict[str, Any]]) -> dict:
         return {
             last_login: count_login / count_logins * 100
             for last_login, count_login in last_login_stats.items()
-    }
+        }
     except ZeroDivisionError:
         return last_login_stats
 
@@ -85,21 +82,21 @@ def get_last_login(date_str: str) -> str:
     last_login_date = date.fromisoformat(date_str)
     delta = date.today() - last_login_date
     match delta:
-            case delta if delta.days <= TWO_DAYS:
-                return 'less_than_two_days'
-            case delta if delta.days <= WEEK:
-                return 'less_than_one_week'
-            case delta if delta.days <= MONTH:
-                return 'less_than_one month'
-            case delta if delta.days <= HALFYEAR:
-                return 'less_than_half_year'
-            case _:
-                return 'more_than_half_year'
+        case delta if delta.days <= TWO_DAYS:
+            return 'less_than_two_days'
+        case delta if delta.days <= WEEK:
+            return 'less_than_one_week'
+        case delta if delta.days <= MONTH:
+            return 'less_than_one month'
+        case delta if delta.days <= HALFYEAR:
+            return 'less_than_half_year'
+        case _:
+            return 'more_than_half_year'
 
 
 def process_regions(clients: dict[str, dict[str, Any]]) -> dict:
     """
-    Collects clietns statistics by city as a percentage.
+    Collect clietns statistics by city as a percentage.
 
     Args:
         clients (dict[str, dict[str, Any]]): Clients data.
@@ -108,7 +105,7 @@ def process_regions(clients: dict[str, dict[str, Any]]) -> dict:
         dict: Clients cities.
     """
     regions = {}
-    
+
     count_regions = 0
     for client in clients.values():
         if 'region' not in client:
@@ -120,4 +117,4 @@ def process_regions(clients: dict[str, dict[str, Any]]) -> dict:
     return {
         region_name: count_region / count_regions * 100
         for region_name, count_region in regions.items()
-}
+    }
