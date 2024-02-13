@@ -1,4 +1,4 @@
-"""Module for hw2."""
+"""A module with extra functions for hw2."""
 import os
 from datetime import date
 from typing import Any
@@ -10,7 +10,19 @@ HALFYEAR = 180
 
 
 def check_paths(input_path: str, output_path: str) -> None:
+    """
+    Check the file paths for errors.
 
+    Args:
+        input_path (str): Input path to JSON file.
+        output_path (str): Outpu path to JSON file.
+
+    Raises:
+        ValueError: If transferred a non-existent file.
+        ValueError: If the file contains nothing.
+        TypeError: If the input file is in the wrong extension.
+        TypeError: If the output file is in the wrong extension.
+    """
     if not os.path.exists(input_path):
         raise ValueError('Input file does not exist.')
     if os.stat(input_path).st_size == 0:
@@ -26,7 +38,15 @@ def check_paths(input_path: str, output_path: str) -> None:
 
 
 def process_last_login(clients: dict[str, dict[str, Any]]) -> dict:
+    """
+    Collects clietns statistics by last login as a percentage.
 
+    Args:
+        clients (dict[str, dict[str, Any]]): Clients data.
+
+    Returns:
+        dict: Last logins statistics.
+    """
     last_login_stats = {
         'less_than_two_days': 0,
         'less_than_one_week': 0,
@@ -53,7 +73,15 @@ def process_last_login(clients: dict[str, dict[str, Any]]) -> dict:
 
 
 def get_last_login(date_str: str) -> str:
+    """
+    Determine when the client last logged in.
 
+    Args:
+        date_str (str): Last login date.
+
+    Returns:
+        str: Clients last login.
+    """
     last_login_date = date.fromisoformat(date_str)
     delta = date.today() - last_login_date
     match delta:
@@ -70,7 +98,15 @@ def get_last_login(date_str: str) -> str:
 
 
 def process_regions(clients: dict[str, dict[str, Any]]) -> dict:
+    """
+    Collects clietns statistics by city as a percentage.
 
+    Args:
+        clients (dict[str, dict[str, Any]]): Clients data.
+
+    Returns:
+        dict: Clients cities.
+    """
     regions = {}
     
     count_regions = 0
