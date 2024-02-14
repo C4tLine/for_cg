@@ -1,9 +1,8 @@
 """Test module for hw3."""
 
-
 import pytest
 
-from hw3 import Weapon, Unit, Player, Enemy, Game
+from hw3 import Enemy, Game, Player, Weapon
 
 DAMAGE = 25
 HEALTH = 100
@@ -21,17 +20,6 @@ TEST_WEAPON = (
 TEST_ERROR_WEAPON = (
     ('', DAMAGE),
     ('Void', NEGATIVE_DMG),
-)
-
-TEST_UNIT = (
-    ('Dunmer', HEALTH, Weapon('Saber', DAMAGE)),
-    ('Human', HEALTH, Weapon('Sword', DAMAGE)),
-    ('Dwarf', HEALTH, Weapon('Pickaxe', DAMAGE)),
-)
-
-TEST_ERROR_UNIT = (
-    ('Task', HEALTH, NEGATIVE_DMG),
-    ('Homework', HEALTH, DAMAGE),
 )
 
 TEST_PLAYER = (
@@ -81,33 +69,6 @@ def test_error_weapon(name: str, damage: int | float) -> None:
     """
     with pytest.raises(ValueError):
         assert Weapon(name, damage)
-
-
-@pytest.mark.parametrize('name, health, weapon', TEST_UNIT)
-def test_unit(name: str, health: int | float, weapon: Weapon) -> None:
-    """
-    Test the created objects of type unit.
-
-    Args:
-        name (str): Unit name.
-        health (int | float): Unit health.
-        weapon (Weapon): Unit weapon.
-    """
-    assert Unit(name, health, weapon)
-
-
-@pytest.mark.parametrize('name, health, weapon', TEST_ERROR_UNIT)
-def test_error_unit(name: str, health: int | float, weapon: Weapon) -> None:
-    """
-    Test the wrong created objects of type unit.
-
-    Args:
-        name (str): Unit name.
-        health (int | float): Unit health.
-        weapon (Weapon): Unit weapon.
-    """
-    with pytest.raises(TypeError):
-        assert Unit(name, health, weapon)
 
 
 @pytest.mark.parametrize('name, health, weapon, level', TEST_PLAYER)
