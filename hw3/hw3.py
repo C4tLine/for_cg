@@ -1,4 +1,5 @@
 """Module hw3 - A simple computer game.
+
 Задание: Компьютерная игра
 Опишите архитектуру классов для компьютерной игры. Вам нужно создать следующие классы:
 
@@ -38,7 +39,7 @@
 Добавить врага
 Удалить врага
 """
-from typing import Any, Optional, Self
+from typing import Any, Optional
 
 
 def check(new_value: Any, classes: tuple[type] | type[Any], is_positive: Optional[bool] = False):
@@ -221,12 +222,12 @@ class Unit:
         check(new_weapon, (Weapon))
         self._weapon = new_weapon
 
-    def attack(self, other_unit: Self) -> str:
+    def attack(self, other_unit: type) -> str:
         """
         Display a fight between two units.
 
         Args:
-            other_unit (Self): Other unit.
+            other_unit (type): Other unit.
 
         Returns:
             str: Display an attack of unit.
@@ -288,7 +289,7 @@ class Player(Unit):
         Returns:
             str: Player characteristic.
         """
-        return super().__str__() + f', level: {self.level}'
+        return f'{self.name} with {self.health} HP, {self.weapon}, level {self.level}'
 
 
 class Enemy(Unit):

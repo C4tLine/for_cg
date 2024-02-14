@@ -167,9 +167,7 @@ def test_error_enemy(name: str, health: int | float, weapon: Weapon) -> None:
 
 
 def test_add_weapon() -> None:
-    """
-    Test for add_weapon function.
-    """
+    """Test for add_weapon function."""
     game = Game([], [TEST_WEAPON], [])
     new_weapon = Weapon('Halberd', DAMAGE)
     game.add_weapon(new_weapon)
@@ -177,9 +175,7 @@ def test_add_weapon() -> None:
 
 
 def test_remove_weapon() -> None:
-    """
-    Test for remove_weapon function.
-    """
+    """Test for remove_weapon function."""
     game = Game([], [TEST_WEAPON], [])
     old_weapon = Weapon('Sabre', DAMAGE)
     game.add_weapon(old_weapon)
@@ -188,9 +184,7 @@ def test_remove_weapon() -> None:
 
 
 def test_add_player() -> None:
-    """
-    Test for add_player function.
-    """
+    """Test for add_player function."""
     game = Game([TEST_PLAYER], [], [])
     new_player = Player('Rogue', HEALTH, Weapon('Daggers', DAMAGE), LEVEL)
     game.add_player(new_player)
@@ -198,9 +192,7 @@ def test_add_player() -> None:
 
 
 def test_remove_player() -> None:
-    """
-    Test for remove_player function.
-    """
+    """Test for remove_player function."""
     game = Game([TEST_PLAYER], [], [])
     old_player = Player('Support', HEALTH, Weapon('Magic Book', DAMAGE), LEVEL)
     game.add_player(old_player)
@@ -209,9 +201,7 @@ def test_remove_player() -> None:
 
 
 def test_add_enemy() -> None:
-    """
-    Test for add_enemy function.
-    """
+    """Test for add_enemy function."""
     game = Game([], [], [TEST_ENEMY])
     new_enemy = Enemy('Black Wolf', HEALTH, Weapon('Claws', DAMAGE))
     game.add_enemy(new_enemy)
@@ -219,9 +209,7 @@ def test_add_enemy() -> None:
 
 
 def test_remove_enemy() -> None:
-    """
-    Test for remove_enemy function.
-    """
+    """Test for remove_enemy function."""
     game = Game([], [], [TEST_ENEMY])
     old_enemy = Enemy('Black Psina', HEALTH, Weapon('Lapki', DAMAGE))
     game.add_enemy(old_enemy)
